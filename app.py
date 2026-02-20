@@ -18,6 +18,15 @@ st.set_page_config(
 # --- CUSTOM CSS FOR BETTER AESTHETICS ---
 st.markdown("""
     <style>
+    @media (max-width: 768px) {
+        .block-container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            padding-top: 1rem !important;
+        }
+        h1 { font-size: 28px !important; }
+    }
+    
     .block-container {
         padding-top: 2.5rem;
         padding-bottom: 1rem;
@@ -314,4 +323,5 @@ with tab_qual:
 
 
 st.divider()
+
 st.caption("Developed for Research Project | Topic: Digital Lives: Real Anxiety")
