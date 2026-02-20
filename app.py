@@ -20,11 +20,17 @@ st.markdown("""
     <style>
     @media (max-width: 768px) {
         .block-container {
-            padding-left: 1rem !important;
-            padding-right: 1rem !important;
+            padding-left: 0.8rem !important;
+            padding-right: 0.8rem !important;
             padding-top: 1rem !important;
         }
-        h1 { font-size: 28px !important; }
+        .stApp h1 {
+            font-size: 28px !important; /* Scale down the title for small screens */
+            padding-bottom: 1rem !important;
+        }
+        .stMetric {
+            margin-bottom: 10px !important;
+        }
     }
     
     .block-container {
@@ -325,3 +331,4 @@ with tab_qual:
 st.divider()
 
 st.caption("Developed for Research Project | Topic: Digital Lives: Real Anxiety")
+
