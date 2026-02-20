@@ -153,8 +153,8 @@ with tab_overview:
                     padding-bottom: 10px; 
                     padding-left: 100px;
                     padding-right: 0px; 
-                    width: 2900px;
-                    height:2600px;
+                    width: 290;
+                    height:260;
                 }
              </style>
              """, unsafe_allow_html=True)
@@ -331,4 +331,5 @@ with tab_qual:
 st.divider()
 
 st.caption("Developed for Research Project | Topic: Digital Lives: Real Anxiety")
+
 
