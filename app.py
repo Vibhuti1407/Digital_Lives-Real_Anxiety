@@ -39,7 +39,7 @@ ga_breakout_code = """
 """
 
 # Renders the tracking element invisibly into the app layout
-components.html(ga_code, height=0, width=0)
+components.html(ga_breakout_code, height=0, width=0)
 
 # --- CUSTOM CSS FOR BETTER AESTHETICS ---
 st.markdown("""
