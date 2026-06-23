@@ -39,6 +39,7 @@ def track_page_view():
                 "params": {
                     "page_title": "Digital Lives: Real Anxiety",
                     "engagement_time_msec": "1"
+                    "debug_mode": 1
                 }
             }]
         }
