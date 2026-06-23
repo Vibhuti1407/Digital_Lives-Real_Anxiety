@@ -6,6 +6,7 @@ import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
+import streamlit.components.v1 as components
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -19,15 +20,24 @@ st.set_page_config(
 import streamlit.components.v1 as components
 
 # This script forces the Google Tag onto the parent window execution context
-ga_code = """
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ3PH3M4F5"></script>
-    <script>
-      window.parent.dataLayer = window.parent.dataLayer || [];
-      function gtag(){window.parent.dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SJ3PH3M4F5');
-    </script>
+ga_breakout_code = """
+<script>
+    // 1. Create a script tag pointing to Google Tag Manager
+    var ga_script = window.parent.document.createElement('script');
+    ga_script.async = true;
+    ga_script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SJ3PH3M4F5';
+    window.parent.document.head.appendChild(ga_script);
+
+    // 2. Setup the global dataLayer arrays on the main top window frame
+    window.parent.dataLayer = window.parent.dataLayer || [];
+    window.parent.gtag = function(){window.parent.dataLayer.push(arguments);}
+    
+    // 3. Fire the configuration events
+    window.parent.gtag('js', new Date());
+    window.parent.gtag('config', 'G-SJ3PH3M4F5');
+</script>
 """
+
 # Renders the tracking element invisibly into the app layout
 components.html(ga_code, height=0, width=0)
 
