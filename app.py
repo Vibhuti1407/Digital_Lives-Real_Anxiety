@@ -23,7 +23,7 @@ import streamlit.components.v1 as components
 # --- BACKEND GOOGLE ANALYTICS (GA4 MEASUREMENT PROTOCOL) ---
 def track_page_view():
     # Replace with the Secret Value you generated in Step 1
-    api_secret = "YOUR_MEASUREMENT_PROTOCOL_API_SECRET" 
+    api_secret = "-b3Sb5E-QEKVYE9wrMJCnA" 
     measurement_id = "G-SJ3PH3M4F5"
     
     # Track unique user sessions locally using streamlit session state
