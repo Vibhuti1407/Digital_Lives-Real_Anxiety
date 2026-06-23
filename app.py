@@ -6,7 +6,8 @@ import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
-import streamlit.components.v1 as components
+import requests  
+import uuid
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -19,27 +20,35 @@ st.set_page_config(
 # --- GOOGLE ANALYTICS INTEGRATION ---
 import streamlit.components.v1 as components
 
-# This script forces the Google Tag onto the parent window execution context
-ga_breakout_code = """
-<script>
-    // 1. Create a script tag pointing to Google Tag Manager
-    var ga_script = window.parent.document.createElement('script');
-    ga_script.async = true;
-    ga_script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SJ3PH3M4F5';
-    window.parent.document.head.appendChild(ga_script);
-
-    // 2. Setup the global dataLayer arrays on the main top window frame
-    window.parent.dataLayer = window.parent.dataLayer || [];
-    window.parent.gtag = function(){window.parent.dataLayer.push(arguments);}
+# --- BACKEND GOOGLE ANALYTICS (GA4 MEASUREMENT PROTOCOL) ---
+def track_page_view():
+    # Replace with the Secret Value you generated in Step 1
+    api_secret = "YOUR_MEASUREMENT_PROTOCOL_API_SECRET" 
+    measurement_id = "G-SJ3PH3M4F5"
     
-    // 3. Fire the configuration events
-    window.parent.gtag('js', new Date());
-    window.parent.gtag('config', 'G-SJ3PH3M4F5');
-</script>
-"""
+    # Track unique user sessions locally using streamlit session state
+    if "ga_client_id" not in st.session_state:
+        st.session_state.ga_client_id = str(uuid.uuid4())
+        
+        # Build the payload to hit Google's servers directly
+        url = f"https://www.google-analytics.com/mp/collect?measurement_id={measurement_id}&api_secret={api_secret}"
+        payload = {
+            "client_id": st.session_state.ga_client_id,
+            "events": [{
+                "name": "page_view",
+                "params": {
+                    "page_title": "Digital Lives: Real Anxiety",
+                    "engagement_time_msec": "1"
+                }
+            }]
+        }
+        try:
+            requests.post(url, json=payload, timeout=2)
+        except Exception:
+            pass # Silently pass if there's a temporary network hiccup
 
-# Renders the tracking element invisibly into the app layout
-components.html(ga_breakout_code, height=0, width=0)
+# Execute the tracker instantly
+track_page_view()
 
 # --- CUSTOM CSS FOR BETTER AESTHETICS ---
 st.markdown("""
