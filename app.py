@@ -15,17 +15,21 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-"""
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ3PH3M4F5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+# --- GOOGLE ANALYTICS INTEGRATION ---
+import streamlit.components.v1 as components
 
-  gtag('config', 'G-SJ3PH3M4F5');
-</script>
+# This script forces the Google Tag onto the parent window execution context
+ga_code = """
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ3PH3M4F5"></script>
+    <script>
+      window.parent.dataLayer = window.parent.dataLayer || [];
+      function gtag(){window.parent.dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SJ3PH3M4F5');
+    </script>
 """
+# Renders the tracking element invisibly into the app layout
+components.html(ga_code, height=0, width=0)
 
 # --- CUSTOM CSS FOR BETTER AESTHETICS ---
 st.markdown("""
